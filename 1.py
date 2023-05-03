@@ -43,3 +43,18 @@ def posiciona_frota(navios):
                 grid[cordenada[0]][cordenada[1]]=1
     return grid
             
+
+def afundados(frota, tabuleiro):
+    resultado=0
+    for modelo in frota:
+        for navio in frota[modelo]:
+            naufrago=True
+            for posicao in navio:
+                if tabuleiro[posicao[0]][posicao[1]]!='X':
+                    naufrago=False
+            if naufrago==True:
+                resultado+=1
+    return resultado
+
+
+
