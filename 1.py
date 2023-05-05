@@ -1,4 +1,4 @@
-def define_posicoes(linha, coluna, orientacao, tamanho):
+def define_posicoes( linha, coluna, orientacao, tamanho):
     lista_posicoes= []
     if orientacao=="vertical":
         for posicao in range(tamanho):
@@ -70,4 +70,44 @@ def posicao_valida(tabuleiro,linha, coluna, orientacao, tamanho):
     return True
 
 
+#Posicionando frota
 
+i= 0                            #Condição Inicial para entrar no while
+frota = {
+    "porta-aviões":[],
+    "navio-tanque":[],
+    "contratorpedeiro":[],
+    "submarino": [],
+}                               #Dicionario vazio
+
+while i< 10:                    #Quantidade de navios
+    if i == 0 :
+        nome= 'porta-aviões'
+        tamanho= 4
+    elif i >=1 and i <=2:
+        nome= 'navio-tanque'
+        tamanho= 3
+    elif i >= 3 and i <= 6:
+        nome = 'contratorpedeiro'
+        tamanho = 2
+    elif i > 6: 
+        nome = 'submarino'
+        tamanho = 1
+    print(f"Insira as informações referentes ao navio {nome} que possui tamanho {tamanho}")
+    condicao= True
+    while condicao:
+        linha= int(input("Linha: "))
+        coluna= int(input("Coluna: "))
+        orientacao_numero= int(input('[1] Vertical [2] Horizontal >'))
+        orientacao=''
+        if orientacao_numero== '1':
+            orientacao='vertical'
+        elif orientacao_numero== '2':
+            orientacao = 'horizontal'
+        if define_posicoes(linha, coluna, orientacao, tamanho)== True:
+            preenche_frota(frota, nome, linha, coluna, orientacao, tamanho)
+            i+=1
+            condicao= False
+        else:
+            print('Esta posição não está válida!')
+print(frota)
