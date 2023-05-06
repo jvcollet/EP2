@@ -96,9 +96,9 @@ while i< 10:                    #Quantidade de navios
     print(f"Insira as informações referentes ao navio {nome} que possui tamanho {tamanho}")
     condicao= True
     while condicao:
-        linha= int(input("Linha: "))
-        coluna= int(input("Coluna: "))
-        orientacao_numero= int(input('[1] Vertical [2] Horizontal >'))
+        linha= input("Linha: ")
+        coluna= input("Coluna: ")
+        orientacao_numero= input('[1] Vertical [2] Horizontal >')
         orientacao=''
         if orientacao_numero== '1':
             orientacao='vertical'
@@ -111,3 +111,4 @@ while i< 10:                    #Quantidade de navios
         else:
             print('Esta posição não está válida!')
 print(frota)
+
