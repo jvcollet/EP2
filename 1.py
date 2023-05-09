@@ -72,7 +72,7 @@ def posicao_valida(tabuleiro,linha, coluna, orientacao, tamanho):
 
 #Posicionando frota
 
-frota = {
+frota_jogador = {
     "porta-aviões":[],
     "navio-tanque":[],
     "contratorpedeiro":[],
@@ -97,8 +97,8 @@ for navio, tamanho in dicionario_embarcacoes.items():
             if orientacao == 2:
                 orientacao = 'horizontal'
 
-            if posicao_valida(frota, linha, coluna, orientacao, tamanho[1]) == False:
-                while posicao_valida(frota, linha, coluna, orientacao, tamanho[1]) == False:
+            if posicao_valida(frota_jogador, linha, coluna, orientacao, tamanho[1]) == False:
+                while posicao_valida(frota_jogador, linha, coluna, orientacao, tamanho[1]) == False:
 
                     print('Esta posição não está válida!')
                     print(f'Insira as informações referentes ao navio {navio} que possui tamanho {tamanho[1]}')
@@ -114,16 +114,16 @@ for navio, tamanho in dicionario_embarcacoes.items():
                         if orientacao == 2:
                             orientacao = 'horizontal'
                 
-                frota = preenche_frota(frota, navio, linha, coluna, orientacao, tamanho[1])
+                frota_jogador = preenche_frota(frota_jogador, navio, linha, coluna, orientacao, tamanho[1])
             
             else:
-                frota = preenche_frota(frota, navio, linha, coluna, orientacao, tamanho[1])
+                frota_jogador = preenche_frota(frota_jogador, navio, linha, coluna, orientacao, tamanho[1])
 
         else:
             orientacao = 'horizontal'
 
-            if posicao_valida(frota, linha, coluna, orientacao, tamanho[1]) == False:
-                while posicao_valida(frota, linha, coluna, orientacao, tamanho[1]) == False:
+            if posicao_valida(frota_jogador, linha, coluna, orientacao, tamanho[1]) == False:
+                while posicao_valida(frota_jogador, linha, coluna, orientacao, tamanho[1]) == False:
 
                     print('Esta posição não está válida!')
                     print(f'Insira as informações referentes ao navio {navio} que possui tamanho {tamanho[1]}')
@@ -139,10 +139,73 @@ for navio, tamanho in dicionario_embarcacoes.items():
                         if orientacao == 2:
                             orientacao = 'horizontal'
 
-                frota = preenche_frota(frota, navio, linha, coluna, orientacao, tamanho[1])
+                frota_jogador = preenche_frota(frota_jogador, navio, linha, coluna, orientacao, tamanho[1])
                 
             else:
-                frota = preenche_frota(frota, navio, linha, coluna, orientacao, tamanho[1])
+                frota_jogador = preenche_frota(frota_jogador, navio, linha, coluna, orientacao, tamanho[1])
 
-print(frota)
+
+#Jogadas do jogador
+
+frota_oponente = {
+    'porta-aviões': [
+        [[9, 1], [9, 2], [9, 3], [9, 4]]
+    ],
+    'navio-tanque': [
+        [[6, 0], [6, 1], [6, 2]],
+        [[4, 3], [5, 3], [6, 3]]
+    ],
+    'contratorpedeiro': [
+        [[1, 6], [1, 7]],
+        [[0, 5], [1, 5]],
+        [[3, 6], [3, 7]]
+    ],
+    'submarino': [
+        [[2, 7]],
+        [[0, 6]],
+        [[9, 7]],
+        [[7, 6]]
+    ]}
+
+tabuleiro_oponente = posiciona_frota(frota_oponente)
+tabuleiro_jogador =  posiciona_frota(frota_jogador)
+
+def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
+    texto = ''
+    texto += '   0  1  2  3  4  5  6  7  8  9         0  1  2  3  4  5  6  7  8  9\n'
+    texto += '_______________________________      _______________________________\n'
+
+    for linha in range(len(tabuleiro_jogador)):
+        jogador_info = '  '.join([str(item) for item in tabuleiro_jogador[linha]])
+        oponente_info = '  '.join([info if str(info) in 'X-' else '0' for info in tabuleiro_oponente[linha]])
+        texto += f'{linha}| {jogador_info}|     {linha}| {oponente_info}|\n'
+    return texto
+
+jogando = True
+cordenadas = []
+while jogando:
+    perguntando = True
+    tabuleiros = monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente)
+    print(tabuleiros)
+    while perguntando:
+        linha = int(input("Linha do ataque:"))
+        while linha < 0 and linha > 9: 
+            print('Linha inválida!')
+            linha = int(input("Linha do ataque:"))
+        
+        coluna = int(input("Coluna do ataque:"))
+        while coluna < 0 and coluna > 9:
+            print('Coluna inválida!')
+            coluna = int(input("Coluna do ataque:"))
+        if [linha, coluna] not in cordenadas:
+            cordenadas.append([linha,coluna])
+            break
+        else:
+            print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
+    tabuleiro_oponente = faz_jogada(tabuleiro_oponente, linha, coluna)
+    if afundados(frota_oponente, tabuleiro_oponente)== True :
+        print('Parabéns! Você derrubou todos os navios do seu oponente!')
+        jogando = False
+        break
+
 
