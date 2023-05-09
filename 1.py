@@ -188,21 +188,21 @@ while jogando:
     tabuleiros = monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente)
     print(tabuleiros)
     while perguntando:
-        linha = int(input("Linha do ataque:"))
-        while linha < 0 and linha > 9: 
+        linha_ataque = int(input("Linha do ataque:"))
+        while linha_ataque < 0 or linha_ataque > 9: 
             print('Linha inválida!')
-            linha = int(input("Linha do ataque:"))
+            linha_ataque = int(input("Linha do ataque:"))
         
-        coluna = int(input("Coluna do ataque:"))
-        while coluna < 0 and coluna > 9:
+        coluna_ataque = int(input("Coluna do ataque:"))
+        while coluna_ataque < 0 or coluna_ataque > 9:
             print('Coluna inválida!')
-            coluna = int(input("Coluna do ataque:"))
-        if [linha, coluna] not in cordenadas:
-            cordenadas.append([linha,coluna])
+            coluna_ataque = int(input("Coluna do ataque:"))
+        if [linha_ataque, coluna_ataque] not in cordenadas:
+            cordenadas.append([linha_ataque,coluna_ataque])
             break
         else:
-            print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
-    tabuleiro_oponente = faz_jogada(tabuleiro_oponente, linha, coluna)
+            print(f'A posição linha_ataque {linha_ataque} e coluna_ataque {coluna_ataque} já foi informada anteriormente!')
+    tabuleiro_oponente = faz_jogada(tabuleiro_oponente, linha_ataque, coluna_ataque)
     if afundados(frota_oponente, tabuleiro_oponente)== True :
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando = False
