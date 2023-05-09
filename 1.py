@@ -72,43 +72,77 @@ def posicao_valida(tabuleiro,linha, coluna, orientacao, tamanho):
 
 #Posicionando frota
 
-i= 0                            #Condição Inicial para entrar no while
 frota = {
     "porta-aviões":[],
     "navio-tanque":[],
     "contratorpedeiro":[],
     "submarino": [],
-}                               #Dicionario vazio
+}
 
-while i< 10:                    #Quantidade de navios
-    if i == 0 :
-        nome= 'porta-aviões'
-        tamanho= 4
-    elif i >=1 and i <=2:
-        nome= 'navio-tanque'
-        tamanho= 3
-    elif i >= 3 and i <= 6:
-        nome = 'contratorpedeiro'
-        tamanho = 2
-    elif i > 6: 
-        nome = 'submarino'
-        tamanho = 1
-    print(f"Insira as informações referentes ao navio {nome} que possui tamanho {tamanho}")
-    condicao= True
-    while condicao:
-        linha= input("Linha: ")
-        coluna= input("Coluna: ")
-        orientacao_numero= input('[1] Vertical [2] Horizontal >')
-        orientacao=''
-        if orientacao_numero== '1':
-            orientacao='vertical'
-        elif orientacao_numero== '2':
-            orientacao = 'horizontal'
-        if define_posicoes(linha, coluna, orientacao, tamanho)== True:
-            preenche_frota(frota, nome, linha, coluna, orientacao, tamanho)
-            i+=1
-            condicao= False
+dicionario_embarcacoes = {'porta-aviões': [1, 4], 'navio-tanque': [2, 3], 'contratorpedeiro': [3, 2], 'submarino': [4, 1]}
+
+for navio, tamanho in dicionario_embarcacoes.items():
+    
+    for i in range(0, tamanho[0]):
+        print(f'Insira as informações referentes ao navio {navio} que possui tamanho {tamanho[1]}')
+
+        linha = int(input('Linha: '))
+        coluna = int(input('Coluna: '))
+
+        if navio != 'submarino':
+            orientacao = int(input('[1] Vertical [2] Horizontal > '))
+
+            if orientacao == 1:
+                orientacao = 'vertical'
+            if orientacao == 2:
+                orientacao = 'horizontal'
+
+            if posicao_valida(frota, linha, coluna, orientacao, tamanho[1]) == False:
+                while posicao_valida(frota, linha, coluna, orientacao, tamanho[1]) == False:
+
+                    print('Esta posição não está válida!')
+                    print(f'Insira as informações referentes ao navio {navio} que possui tamanho {tamanho[1]}')
+
+                    linha = int(input('Linha: '))
+                    coluna = int(input('Coluna: '))
+
+                    if navio != 'submarino':
+                        orientacao = int(input('[1] Vertical [2] Horizontal > '))
+
+                        if orientacao == 1:
+                            orientacao = 'vertical'
+                        if orientacao == 2:
+                            orientacao = 'horizontal'
+                
+                frota = preenche_frota(frota, navio, linha, coluna, orientacao, tamanho[1])
+            
+            else:
+                frota = preenche_frota(frota, navio, linha, coluna, orientacao, tamanho[1])
+
         else:
-            print('Esta posição não está válida!')
+            orientacao = 'horizontal'
+
+            if posicao_valida(frota, linha, coluna, orientacao, tamanho[1]) == False:
+                while posicao_valida(frota, linha, coluna, orientacao, tamanho[1]) == False:
+
+                    print('Esta posição não está válida!')
+                    print(f'Insira as informações referentes ao navio {navio} que possui tamanho {tamanho[1]}')
+
+                    linha = int(input('Linha: '))
+                    coluna = int(input('Coluna: '))
+
+                    if navio != 'submarino':
+                        orientacao = int(input('[1] Vertical [2] Horizontal > '))
+
+                        if orientacao == 1:
+                            orientacao = 'vertical'
+                        if orientacao == 2:
+                            orientacao = 'horizontal'
+
+                frota = preenche_frota(frota, navio, linha, coluna, orientacao, tamanho[1])
+                
+            else:
+                frota = preenche_frota(frota, navio, linha, coluna, orientacao, tamanho[1])
+
 print(frota)
 
