@@ -1,4 +1,4 @@
-#definir posicoes
+#definir posicoes.
 def define_posicoes( linha, coluna, orientacao, tamanho):
     lista_posicoes= []
     if orientacao=="vertical":
@@ -9,7 +9,7 @@ def define_posicoes( linha, coluna, orientacao, tamanho):
             lista_posicoes.append([linha, coluna+posicao])
     return lista_posicoes
 
-#definir as tropas do joho
+#definir as tropas do jogo.
 
 def preenche_frota(frota, nome, linha, coluna, orientacao, tamanho):
     cordenadas= define_posicoes(linha, coluna, orientacao, tamanho)
@@ -19,7 +19,7 @@ def preenche_frota(frota, nome, linha, coluna, orientacao, tamanho):
         frota[nome].append(cordenadas)
     return frota
 
-#efetuar jogada
+#efetuar jogada.
 
 def faz_jogada(tabuleiro, linha, coluna):
     if tabuleiro[linha][coluna] == 1:
@@ -28,7 +28,7 @@ def faz_jogada(tabuleiro, linha, coluna):
         tabuleiro[linha][coluna]= '-'
     return tabuleiro
 
-#posicionar frota da jogada
+#posicionar frota da jogada.
 
 def posiciona_frota(navios):
     grid= [
@@ -49,7 +49,7 @@ def posiciona_frota(navios):
                 grid[cordenada[0]][cordenada[1]]=1
     return grid
             
-#incluir variavel dos naufrágios
+#incluir variavel dos naufrágios.
     
 def afundados(frota, tabuleiro):
     resultado=0
@@ -87,11 +87,11 @@ frota = {
     "submarino": [],
 }
 
-dicionario_embarcacoes = {'porta-aviões': [1, 4], 'navio-tanque': [2, 3], 'contratorpedeiro': [3, 2], 'submarino': [4, 1]}
+embarcacoes = {'porta-aviões': [1, 4], 'navio-tanque': [2, 3], 'contratorpedeiro': [3, 2], 'submarino': [4, 1]}
 
-for navio, tamanho in dicionario_embarcacoes.items():
+for navio, tamanho in embarcacoes.items():
     
-    for i in range(0, tamanho[0]):
+    for indice in range(0, tamanho[0]):
         print(f'Insira as informações referentes ao navio {navio} que possui tamanho {tamanho[1]}')
         linha = int(input('Linha: '))
         coluna = int(input('Coluna: '))
@@ -142,7 +142,7 @@ for navio, tamanho in dicionario_embarcacoes.items():
 
 
 
-#Jogadas do jogador
+#Jogadas do jogador.
 
 frota_oponente = {
     'porta-aviões': [
