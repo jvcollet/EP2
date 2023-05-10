@@ -1,5 +1,4 @@
-import random
-random.seed(2)
+#definir posicoes
 def define_posicoes( linha, coluna, orientacao, tamanho):
     lista_posicoes= []
     if orientacao=="vertical":
@@ -10,6 +9,7 @@ def define_posicoes( linha, coluna, orientacao, tamanho):
             lista_posicoes.append([linha, coluna+posicao])
     return lista_posicoes
 
+#definir as tropas do joho
 
 def preenche_frota(frota, nome, linha, coluna, orientacao, tamanho):
     cordenadas= define_posicoes(linha, coluna, orientacao, tamanho)
@@ -19,12 +19,16 @@ def preenche_frota(frota, nome, linha, coluna, orientacao, tamanho):
         frota[nome].append(cordenadas)
     return frota
 
+#efetuar jogada
+
 def faz_jogada(tabuleiro, linha, coluna):
     if tabuleiro[linha][coluna] == 1:
         tabuleiro[linha][coluna]= 'X'
     else:
         tabuleiro[linha][coluna]= '-'
     return tabuleiro
+
+#posicionar frota da jogada
 
 def posiciona_frota(navios):
     grid= [
@@ -45,7 +49,8 @@ def posiciona_frota(navios):
                 grid[cordenada[0]][cordenada[1]]=1
     return grid
             
-
+#incluir variavel dos naufrágios
+    
 def afundados(frota, tabuleiro):
     resultado=0
     for modelo in frota:
@@ -57,6 +62,8 @@ def afundados(frota, tabuleiro):
             if naufrago==True:
                 resultado+=1
     return resultado
+
+#validar posicao
 
 def posicao_valida(tabuleiro,linha, coluna, orientacao, tamanho):
     posicao= define_posicoes(linha, coluna, orientacao, tamanho)
@@ -70,6 +77,8 @@ def posicao_valida(tabuleiro,linha, coluna, orientacao, tamanho):
         if i[0]<0 or i[0]>9 or i[0]<0 or i[1]>9:
             return False
     return True
+
+#posicionaria frota de acordo com os inputs do jogador
 
 frota = {
     "porta-aviões":[],
@@ -200,6 +209,7 @@ while jogando:
         jogando = False
         break
     else:
+        #realiza as jogadas do boot
         sorteando = True
         while sorteando:
             possibilidades= [0,1,2,3,4,5,6,7,8,9]
