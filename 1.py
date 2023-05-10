@@ -103,7 +103,6 @@ for navio, tamanho in dicionario_embarcacoes.items():
 
                     if navio != 'submarino':
                         orientacao = int(input('[1] Vertical [2] Horizontal > '))
-
                         if orientacao == 2:
                             orientacao = 'horizontal'
                         else:
@@ -128,7 +127,6 @@ for navio, tamanho in dicionario_embarcacoes.items():
                         if orientacao == 2:
                             orientacao = 'horizontal'
                 frota = preenche_frota(frota, navio, linha, coluna, orientacao, tamanho[1])
-print(frota)
 
 
 
@@ -156,7 +154,7 @@ frota_oponente = {
     ]}
 
 tabuleiro_oponente = posiciona_frota(frota_oponente)
-tabuleiro_jogador =  posiciona_frota(frota_jogador)
+tabuleiro_jogador =  posiciona_frota(frota)
 
 def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
     texto = ''
@@ -191,9 +189,7 @@ while jogando:
         else:
             print(f'A posição linha_ataque {linha_ataque} e coluna_ataque {coluna_ataque} já foi informada anteriormente!')
     tabuleiro_oponente = faz_jogada(tabuleiro_oponente, linha_ataque, coluna_ataque)
-    if afundados(frota_oponente, tabuleiro_oponente)== True :
+    if afundados(frota_oponente, tabuleiro_oponente)== 10:
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando = False
         break
-
-
