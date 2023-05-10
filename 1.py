@@ -1,3 +1,5 @@
+import random
+random.seed(2)
 def define_posicoes( linha, coluna, orientacao, tamanho):
     lista_posicoes= []
     if orientacao=="vertical":
@@ -168,7 +170,10 @@ def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
     return texto
 
 jogando = True
-cordenadas = []
+cordenadas_a = []
+cordenadas_b=[]
+import random
+random.seed(2)
 while jogando:
     perguntando = True
     tabuleiros = monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente)
@@ -183,13 +188,32 @@ while jogando:
         while coluna_ataque < 0 or coluna_ataque > 9:
             print('Coluna inválida!')
             coluna_ataque = int(input("Coluna do ataque:"))
-        if [linha_ataque, coluna_ataque] not in cordenadas:
-            cordenadas.append([linha_ataque,coluna_ataque])
+        if [linha_ataque, coluna_ataque] not in cordenadas_a:
+            cordenadas_a.append([linha_ataque,coluna_ataque])
             break
         else:
             print(f'A posição linha_ataque {linha_ataque} e coluna_ataque {coluna_ataque} já foi informada anteriormente!')
     tabuleiro_oponente = faz_jogada(tabuleiro_oponente, linha_ataque, coluna_ataque)
+
     if afundados(frota_oponente, tabuleiro_oponente)== 10:
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando = False
         break
+    else:
+        sorteando = True
+        while sorteando:
+            possibilidades= [0,1,2,3,4,5,6,7,8,9]
+            linha_defesa = random.randint(0,9)
+            coluna_defesa = random.randint(0,9)
+            if [linha_defesa, coluna_defesa] not in cordenadas_b:
+                cordenadas_b.append([linha_defesa, coluna_defesa])
+                break
+        print(f'Seu oponente está atacando na linha {linha_defesa} e coluna {coluna_defesa}')
+        faz_jogada(tabuleiro_jogador,linha_defesa,coluna_defesa)
+        if afundados(frota, tabuleiro_jogador)== 10:
+            print('Xi! O oponente derrubou toda a sua frota =(')
+            jogando = False
+            break
+
+
+
